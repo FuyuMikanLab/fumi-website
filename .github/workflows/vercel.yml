@@ -2,9 +2,9 @@ name: Deploy Vercel
 
 on:
   push:
-    branches: [dev]
+    branches: [main]
   pull_request:
-    branches: [dev]
+    branches: [main]
 
 concurrency:
   group: vercel-${{ github.workflow }}-${{ github.ref }}
