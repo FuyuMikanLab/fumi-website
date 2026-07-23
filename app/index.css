@@ -591,6 +591,12 @@
         left: 1rem;
         bottom: 1rem;
     }
+
+    .members__meta-desc {
+        text-shadow: 0 0 2px rgb(0 0 0 / 0.8), 0 0 4px rgb(0 0 0 / 0.8),
+            0 0 6px rgb(0 0 0 / 0.8), 2px 2px 2px rgb(0 0 0 / 0.8);
+        border-radius: 10px;
+    }
 }
 
 @media (max-width: 720px) {
