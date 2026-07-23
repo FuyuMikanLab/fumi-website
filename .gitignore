@@ -1,0 +1,4 @@
+node_modules
+.next
+fonts/source/
+.vercel
