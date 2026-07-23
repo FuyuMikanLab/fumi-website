@@ -18,6 +18,13 @@ const SECTIONS: NavSection[] = [
 
 /** 设计稿尺寸 1422×800，保持固定比例并随视口缩放 */
 const VIDEO_ASPECT = "1422 / 800";
+
+/**
+ * 视频经同源 /cdn 代理加载（next.config rewrites → assert.vrfan.icu）。
+ * WebGL 读帧要求 CORS；直连 CDN 时 CF 缓存偶发丢掉 ACAO，同源可彻底规避。
+ */
+const assetUrl = (path: string) =>
+  `/cdn${path.startsWith("/") ? path : `/${path}`}`;
 const Header = () => {
   const linkList = [
     { label: "Github", href: "https://github.com/FuyuMikanLab" },
@@ -49,28 +56,25 @@ const Header = () => {
 };
 const SectionHomePage = () => {
   return (
-    <>
-      <div className="w-[80vw]">
+    <div className="banner">
+      <div className="banner__copy">
         <div className="section__inner">
           <p className="section__eyebrow">Fumi</p>
           <h1 className="section__title banner__title">FuyumikanLab</h1>
           <p className="section__desc">
             <b>FuyumikanLab</b> 是国内<b>较</b>具影响力的原创虚拟艺人企划
           </p>
-          <p className="section__desc">
+          <p className="section__desc banner__desc-long">
             <b>虚拟艺人</b>日常通过直播、短视频、演出等方式活跃在 bilibili
             等平台，凭借多元化的表演方式提供丰富多彩的娱乐内容，是陪伴粉丝们一起成长的新时代偶像
           </p>
         </div>
       </div>
 
-      <div
-        className="absolute bottom-0 right-[-20%] z-10 w-[min(1422px,90vw)] border-0 overflow-hidden"
-        style={{ aspectRatio: VIDEO_ASPECT }}
-      >
-        <TransparentVideo src="https://assert.vrfan.icu/website/videos/hero-banner.mp4" />
+      <div className="banner__video" style={{ aspectRatio: VIDEO_ASPECT }}>
+        <TransparentVideo src={assetUrl("/website/videos/hero-banner.mp4")} />
       </div>
-    </>
+    </div>
   );
 };
 /**

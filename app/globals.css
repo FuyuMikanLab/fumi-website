@@ -91,6 +91,7 @@ body {
 
 .section-1 {
   min-height: 90svh;
+  place-items: stretch;
   background:
     radial-gradient(ellipse 80% 60% at 70% 20%, #ffe2c8 0%, transparent 55%),
     linear-gradient(160deg, #f3efe6 0%, #e7dcc8 100%);
@@ -214,6 +215,13 @@ body {
 @media (max-width: 720px) {
   .section {
     padding: 5rem 1.25rem 4rem;
+  }
+
+  .section-1 {
+    place-items: start stretch;
+    align-content: start;
+    padding-top: 4.5rem;
+    padding-bottom: 5.5rem;
   }
 
   .section-nav {
