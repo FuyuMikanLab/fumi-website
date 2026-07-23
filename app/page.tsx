@@ -28,9 +28,9 @@ const assetUrl = (path: string) =>
 const Header = () => {
   const linkList = [
     { label: "Github", href: "https://github.com/FuyuMikanLab" },
-    { label: "Bilibili", href: "/" },
+    // { label: "Bilibili", href: "/" },
   ];
-  const toolList = [{ label: "Language", href: "/news" }];
+  // const toolList = [{ label: "Language", href: "/news" }];
 
   return (
     <div className="flex justify-between items-center p-4 header header__texture">
@@ -43,13 +43,13 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        <nav className="flex items-center gap-4">
+        {/* <nav className="flex items-center gap-4">
           {toolList.map((link) => (
             <Link className="link" key={link.href} href={link.href}>
               {link.label}
             </Link>
           ))}
-        </nav>
+        </nav> */}
       </div>
     </div>
   );
@@ -60,7 +60,7 @@ const SectionHomePage = () => {
       <div className="banner__copy">
         <div className="section__inner">
           <p className="section__eyebrow">Fumi</p>
-          <h1 className="section__title banner__title">FuyumikanLab</h1>
+          <div className="section__title banner__title">FuyumikanLab</div>
           <p className="section__desc">
             <b>FuyumikanLab</b> 是国内<b>较</b>具影响力的原创虚拟艺人企划
           </p>
