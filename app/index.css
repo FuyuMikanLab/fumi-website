@@ -29,14 +29,19 @@
 }
 
 .banner__title {
-    line-height: 2;
-    margin-bottom: 6rem;
+    /*
+      transform 会让真机 Chrome 按边框盒裁切合成层。
+      padding 必须加在「带 transform 的元素」上，把上行位移、下行笔画、text-shadow 都包进盒子里。
+    */
+    line-height: 1.3;
+    padding: 0.2em 0.25em 0.4em 0.2em;
+    margin: -0.15em -0.2em 6rem -0.15em;
     font-size: 7rem;
     color: var(--accent);
     font-family: var(--font-harlow), var(--font-sans), sans-serif;
     text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary),
         9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
-    animation: shadows 6s ease-out infinite;
+    animation: shadows 3s ease-in-out infinite;
 }
 
 .banner__video {
@@ -71,13 +76,7 @@
             6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary);
     }
 
-    40% {
-        transform: translate(-12px, -12px);
-        text-shadow: 3px 3px 0 var(--color-secondary),
-            6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary),
-            12px 12px 0 var(--color-quinary);
-    }
-
+    40%,
     50% {
         transform: translate(-12px, -12px);
         text-shadow: 3px 3px 0 var(--color-secondary),
@@ -123,13 +122,14 @@
     }
 
     .banner__title {
-        margin-bottom: 1.5rem;
+        margin: -0.12em -0.15em 1.5rem -0.12em;
         font-size: clamp(2.75rem, 13vw, 4.5rem);
-        line-height: 1.2;
+        line-height: 1.35;
         letter-spacing: -0.02em;
+        padding: 0.22em 0.28em 0.45em 0.22em;
         text-shadow: 2px 2px 0 var(--color-secondary), 4px 4px 0 var(--color-tertiary),
             6px 6px 0 var(--color-quaternary), 8px 8px 0 var(--color-quinary);
-        animation: shadows-mobile 3s ease-out infinite;
+        animation: shadows-mobile 3s ease-in-out infinite;
     }
 
     .banner__video {
@@ -151,6 +151,9 @@
     .banner__title {
         font-size: clamp(2.4rem, 12.5vw, 3.25rem);
         margin-bottom: 1.1rem;
+        margin-top: -0.12em;
+        margin-left: -0.12em;
+        margin-right: -0.15em;
     }
 
     .banner__copy .section__desc {
