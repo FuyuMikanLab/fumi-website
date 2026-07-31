@@ -1,6 +1,8 @@
 "use client";
 
+import { PostPipeline } from "@/src/components/common/PostPipeline";
 import { TransparentVideo } from "@/src/components/common/TransparentVideo";
+import { BlackGauze } from "@/src/components/common/effects/BlackGauze";
 import { SectionNav, type NavSection } from "@/src/components/home/SectionNav";
 import { renderWithBold } from "@/src/utils/renderWithBold";
 import "./index.css";
@@ -72,7 +74,13 @@ const SectionHomePage = () => {
       </div>
 
       <div className="banner__video" style={{ aspectRatio: VIDEO_ASPECT }}>
-        <TransparentVideo src={assetUrl("/website/videos/hero-banner.mp4")} />
+        <PostPipeline>
+          <TransparentVideo src={assetUrl("/website/videos/hero-banner.mp4")} />
+          {/* 后续 3D 模型直接挂在这里，与视频同场景 */}
+          <PostPipeline.Effects>
+            <BlackGauze scale={800} opacity={0.05} bloomIntensity={0.05} />
+          </PostPipeline.Effects>
+        </PostPipeline>
       </div>
     </div>
   );

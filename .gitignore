@@ -1,4 +1,6 @@
 node_modules
+.pnpm-store
+tsconfig.tsbuildinfo
 .next
 fonts/source/
 .vercel
