@@ -128,6 +128,8 @@ const LoadableImage = ({
           sizes={sizes}
           className={className}
           priority={priority}
+          // Fan Art 原图常 2MB+，Vercel /_next/image 拉取压缩易 502，改为浏览器直连 CDN
+          unoptimized
           onLoad={() => {
             loadedSrcCache.add(src);
             setLoaded(true);
@@ -428,6 +430,7 @@ const FanArtComp = ({ vcode }: { vcode: string }) => {
             sizes="100vw"
             className="scale-110 object-cover blur-2xl brightness-[0.92]"
             priority
+            unoptimized
           />
         </motion.div>
       </AnimatePresence>
