@@ -4,3 +4,7 @@ tsconfig.tsbuildinfo
 .next
 fonts/source/
 .vercel
+.tmp-shot
+_tmp_*
+.DS_Store
+.tmp-shot

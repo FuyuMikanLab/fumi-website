@@ -1,0 +1,250 @@
+<!-- Fan Art 分享卡片段：样式全部挂在 #share-card 下，避免污染主站 -->
+<style>
+  #share-card,
+  #share-card * {
+    box-sizing: border-box;
+  }
+
+  #share-card {
+    --bg: #f3efe6;
+    --ink: #1c1914;
+    --accent: #fd83b6;
+    --muted: rgb(28 25 20 / 0.55);
+    --line: rgb(28 25 20 / 0.1);
+    --panel: #fffaf3;
+
+    width: 540px;
+    height: auto;
+    margin: 0;
+    padding: 36px 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background:
+      radial-gradient(ellipse 90% 55% at 88% 8%,
+        color-mix(in srgb, var(--accent) 28%, transparent) 0%,
+        transparent 55%),
+      radial-gradient(ellipse 70% 45% at 10% 92%,
+        #ffe2c8 0%,
+        transparent 50%),
+      linear-gradient(165deg, #f7f3eb 0%, var(--bg) 48%, #e9dfd0 100%);
+    color: var(--ink);
+    font-family:
+      "PingFang SC",
+      "Hiragino Sans GB",
+      "Noto Sans SC",
+      "Microsoft YaHei",
+      system-ui,
+      sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #share-card .fas-brand,
+  #share-card .fas-meta,
+  #share-card .fas-thumbs-wrap,
+  #share-card .fas-footer {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  #share-card .fas-brand {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #share-card .fas-brand__name {
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  #share-card .fas-brand__tag {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  #share-card .fas-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #share-card .fas-meta__date {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+
+  #share-card .fas-meta__title {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  #share-card .fas-meta__artist {
+    margin: 0;
+    font-size: 14px;
+    color: rgb(28 25 20 / 0.72);
+  }
+
+  #share-card .fas-meta__artist span {
+    color: var(--muted);
+  }
+
+  #share-card .fas-meta__remark {
+    margin: 4px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: italic;
+    color: rgb(28 25 20 / 0.68);
+  }
+
+  #share-card .fas-meta__remark[data-empty="true"] {
+    display: none;
+  }
+
+  #share-card .fas-stage {
+    flex: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
+    display: block;
+    position: relative;
+  }
+
+  #share-card .fas-stage__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* vertical-align: top; */
+    object-fit: contain;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  #share-card .fas-thumbs-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #share-card .fas-thumbs-label {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  #share-card .fas-thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #share-card .fas-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: #fff;
+    box-shadow: 0 4px 12px rgb(28 25 20 / 0.1);
+    flex-shrink: 0;
+  }
+
+  #share-card .fas-thumb.is-active {
+    border-color: var(--accent);
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent),
+      0 6px 14px rgb(28 25 20 / 0.14);
+  }
+
+  #share-card .fas-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #share-card .fas-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 4px;
+    border-top: 1px solid var(--line);
+  }
+
+  #share-card .fas-footer__note {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--muted);
+    max-width: 42%;
+  }
+
+  #share-card .fas-footer__url {
+    margin: 0 0 0 auto;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.35;
+    color: rgb(28 25 20 / 0.72);
+    word-break: break-all;
+    max-width: 55%;
+  }
+
+  #share-card .fas-footer__url strong {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+</style>
+
+<div id="share-card">
+  <div class="fas-brand">
+    <div class="fas-brand__name">{{V_NAME}}</div>
+    <!-- <div class="fas-brand__tag">{{V_NAME}}</div> -->
+  </div>
+
+  <div class="fas-meta">
+    <p class="fas-meta__date">{{DATE}}</p>
+    <h1 class="fas-meta__title">感谢 {{FAN_NAME}} 的投稿！</h1>
+    <p class="fas-meta__artist"><span>画师</span> {{ARTIST_NAME}}</p>
+    <p class="fas-meta__remark" data-empty="{{REMARK_EMPTY}}">{{REMARK}}</p>
+  </div>
+
+  <div class="fas-stage">
+    <img class="fas-stage__img" src="{{MAIN_IMAGE}}" alt="{{FAN_NAME}}" />
+  </div>
+
+  <div class="fas-thumbs-wrap">
+    <p class="fas-thumbs-label">Series</p>
+    <div class="fas-thumbs">{{THUMBS_HTML}}</div>
+  </div>
+
+  <div class="fas-footer">
+    <p class="fas-footer__note">来自 {{V_NAME}} 的 Fan Art Gallery</p>
+    <p class="fas-footer__url">
+      <strong>Link</strong>
+      {{PAGE_URL}}
+    </p>
+  </div>
+</div>

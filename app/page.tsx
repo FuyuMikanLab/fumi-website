@@ -10,6 +10,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { DATA_MEMBERS } from "@/src/data";
+import { ISeriesList } from "@/src/data/sectionMember";
 
 const SECTIONS: NavSection[] = [
   { id: "section-1", label: "首页" },
@@ -183,50 +185,10 @@ const tachieVariants = {
 };
 
 const SectionMembers = () => {
-  const seriesList = [
-    {
-      name: "本社一期",
-      members: [
-        {
-          name: "郁花Fumika",
-          description:
-            "FuyumikanLab一期生。为了社团的未来，并没有在全力以赴。<br />怠惰的绝食系恶魔。",
-          code: "fumika",
-        },
-      ],
-    },
-    {
-      name: "虚数电荷",
-      members: [
-        {
-          name: "ふわゆみ",
-          description:
-            "飘忽不定的电子猫。<br />虚数存在，稀薄时间线的住民。<br />似乎在哪里见过。<br />FuyumikanLab的Producer。",
-          code: "fuwayumi",
-        },
-      ],
-    },
-    {
-      name: "不懂意思公园",
-      members: [
-        {
-          name: "o酱",
-          description:
-            "不知何时出现的字母二人组之o。<br />中华武术传人，正在大正女仆咖啡馆担任要职。",
-          code: "ochain",
-        },
-        {
-          name: "b酱",
-          description:
-            "不知何时出现的字母二人组之b。<br />听说本名有四个字符（在编码方式为ASCII、UTF8、GB2312的场景下，长度亦为四个字节），更多信息不详。",
-          code: "bchain",
-        },
-      ],
-    },
-  ];
+  const seriesList: ISeriesList[] = DATA_MEMBERS.seriesList ?? [];
   const allMembers = seriesList.flatMap((series) => series.members);
   const [activeCharacterCode, setActiveCharacterCode] = useState(
-    allMembers[0]?.code ?? "fumika3",
+    allMembers[0]?.code,
   );
   const [direction, setDirection] = useState(0);
 
@@ -302,6 +264,26 @@ const SectionMembers = () => {
         </aside>
 
         <div className="members__showcase">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={activeCharacterCode}
+              className="members__meta"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: TACHIE_EASE }}
+            >
+              <p className="members__meta-label">Now Viewing</p>
+              <Link href={`/${activeCharacterCode}`} className="link">
+                <h3 className="members__meta-name">{activeMember?.name}</h3>
+              </Link>
+              {activeMember?.description ? (
+                <p className="members__meta-desc">
+                  {renderWithBold(activeMember.description)}
+                </p>
+              ) : null}
+            </motion.div>
+          </AnimatePresence>
           <AnimatePresence mode="sync" initial={false} custom={direction}>
             <motion.div
               key={activeCharacterCode}
@@ -321,25 +303,6 @@ const SectionMembers = () => {
                 height={1000}
                 priority
               />
-            </motion.div>
-          </AnimatePresence>
-
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={activeCharacterCode}
-              className="members__meta"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: TACHIE_EASE }}
-            >
-              <p className="members__meta-label">Now Viewing</p>
-              <h3 className="members__meta-name">{activeMember?.name}</h3>
-              {activeMember?.description ? (
-                <p className="members__meta-desc">
-                  {renderWithBold(activeMember.description)}
-                </p>
-              ) : null}
             </motion.div>
           </AnimatePresence>
         </div>
