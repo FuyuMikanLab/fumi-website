@@ -478,7 +478,7 @@ const FanArtComp = ({ vcode }: { vcode: string }) => {
         <div className="mt-2 border-t border-foreground/10 pt-2 text-sm text-foreground/75">
           <p>
             <span className="text-foreground/50">画师 </span>
-            {current.fanName}
+            {current.artistName}
           </p>
           {current.fanDesc ? (
             <p className="text-foreground/60">{current.fanDesc}</p>
