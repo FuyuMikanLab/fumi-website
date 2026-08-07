@@ -55,57 +55,18 @@
 }
 
 @keyframes shadows {
-    0% {
-        text-shadow: none;
-    }
-
-    10% {
-        transform: translate(-3px, -3px);
-        text-shadow: 3px 3px 0 var(--color-secondary);
-    }
-
-    20% {
-        transform: translate(-6px, -6px);
-        text-shadow: 3px 3px 0 var(--color-secondary),
-            6px 6px 0 var(--color-tertiary);
-    }
-
-    30% {
-        transform: translate(-9px, -9px);
-        text-shadow: 3px 3px 0 var(--color-secondary),
-            6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary);
-    }
-
-    40%,
-    50% {
+    0%,
+    100% {
         transform: translate(-12px, -12px);
         text-shadow: 3px 3px 0 var(--color-secondary),
             6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary),
             12px 12px 0 var(--color-quinary);
     }
 
-    60% {
-        text-shadow: 3px 3px 0 var(--color-secondary),
-            6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary),
-            12px 12px 0 var(--color-quinary);
-    }
-
-    70% {
+    50% {
+        transform: translate(-9px, -9px);
         text-shadow: 3px 3px 0 var(--color-secondary),
             6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary);
-    }
-
-    80% {
-        text-shadow: 3px 3px 0 var(--color-secondary),
-            6px 6px 0 var(--color-tertiary);
-    }
-
-    90% {
-        text-shadow: 3px 3px 0 var(--color-secondary);
-    }
-
-    100% {
-        text-shadow: none;
     }
 }
 
@@ -169,36 +130,18 @@
 }
 
 @keyframes shadows-mobile {
-    0% {
-        text-shadow: none;
-    }
-
-    20% {
-        transform: translate(-2px, -2px);
-        text-shadow: 2px 2px 0 var(--color-secondary);
-    }
-
-    40% {
-        transform: translate(-4px, -4px);
-        text-shadow: 2px 2px 0 var(--color-secondary),
-            4px 4px 0 var(--color-tertiary);
-    }
-
-    60% {
-        transform: translate(-6px, -6px);
-        text-shadow: 2px 2px 0 var(--color-secondary),
-            4px 4px 0 var(--color-tertiary), 6px 6px 0 var(--color-quaternary);
-    }
-
-    80% {
+    0%,
+    100% {
         transform: translate(-8px, -8px);
         text-shadow: 2px 2px 0 var(--color-secondary),
             4px 4px 0 var(--color-tertiary), 6px 6px 0 var(--color-quaternary),
             8px 8px 0 var(--color-quinary);
     }
 
-    100% {
-        text-shadow: none;
+    50% {
+        transform: translate(-5px, -5px);
+        text-shadow: 2px 2px 0 var(--color-secondary),
+            4px 4px 0 var(--color-tertiary), 6px 6px 0 var(--color-quaternary);
     }
 }
 

@@ -6,12 +6,12 @@
   }
 
   #share-card {
-    --bg: #f3efe6;
+    --bg: #ffffff;
     --ink: #1c1914;
-    --accent: #fd83b6;
+    --accent: #fd83b684;
     --muted: rgb(28 25 20 / 0.55);
     --line: rgb(28 25 20 / 0.1);
-    --panel: #fffaf3;
+    --panel: #fffaf39f;
 
     width: 540px;
     height: auto;
@@ -20,14 +20,15 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    background:
+    background-color: var(--bg);
+    /* background:
       radial-gradient(ellipse 90% 55% at 88% 8%,
         color-mix(in srgb, var(--accent) 28%, transparent) 0%,
         transparent 55%),
       radial-gradient(ellipse 70% 45% at 10% 92%,
-        #ffe2c8 0%,
+        #f7f3eb6c 0%,
         transparent 50%),
-      linear-gradient(165deg, #f7f3eb 0%, var(--bg) 48%, #e9dfd0 100%);
+      linear-gradient(165deg, #f7f3eb 0%, var(--bg) 48%, #ffffff 100%); */
     color: var(--ink);
     font-family:
       "PingFang SC",
@@ -227,7 +228,7 @@
   <div class="fas-meta">
     <p class="fas-meta__date">{{DATE}}</p>
     <h1 class="fas-meta__title">感谢 {{FAN_NAME}} 的投稿！</h1>
-    <p class="fas-meta__artist"><span>画师</span> {{ARTIST_NAME}}</p>
+    <p class="fas-meta__artist"><span>画师</span> {{ARTIST_NAME}} {{ARTIST_DESC}}</p>
     <p class="fas-meta__remark" data-empty="{{REMARK_EMPTY}}">{{REMARK}}</p>
   </div>
 

@@ -10,8 +10,11 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { Button, Spinner } from "@/src/components/ui";
+import { formatDate } from "@/src/utils/formatDate";
 import artMap, { type IFanArtList } from "./artMap";
 import FanArtShareModal from "./FanArtShareModal";
+import { Share2 } from "lucide-react";
 
 const CARD_SIZE = "size-[clamp(56px,9vw,88px)]";
 const FAN_PIVOT = 100; // 轮盘圆心距卡片底部的距离(px)
@@ -20,30 +23,6 @@ const MAX_STEP_DEG = 20; // 相邻卡片的最大间隔角度
 const FAN_RESERVED = 120; // 舞台底部为轮盘预留的高度(px)
 const DRAG_DEG_PER_PX = 0.25; // 拖拽灵敏度(度/px)
 const WHEEL_DEG_PER_PX = 0.08; // 滚轮灵敏度(度/px)
-
-const formatDate = (d: string) => {
-  const t = new Date(d);
-  if (Number.isNaN(+t)) return d;
-  const mm = String(t.getMonth() + 1).padStart(2, "0");
-  const dd = String(t.getDate()).padStart(2, "0");
-  return `${t.getFullYear()}.${mm}.${dd}`;
-};
-
-/** accent 色圆环 spinner；size 为外径 px */
-const LoadingSpinner = ({ size = 28 }: { size?: number }) => (
-  <motion.span
-    aria-hidden
-    className="block rounded-full"
-    style={{
-      width: size,
-      height: size,
-      border: `${Math.max(2, Math.round(size / 12))}px solid color-mix(in srgb, var(--accent) 28%, transparent)`,
-      borderTopColor: "var(--accent)",
-    }}
-    animate={{ rotate: 360 }}
-    transition={{ duration: 0.75, repeat: Infinity, ease: "linear" }}
-  />
-);
 
 /** 已成功加载过的远程图，避免缩略图重挂载时再闪 loading */
 const loadedSrcCache = new Set<string>();
@@ -110,7 +89,7 @@ const LoadableImage = ({
               />
             )}
             <span className="relative z-10">
-              <LoadingSpinner size={spinnerSize} />
+              <Spinner size={spinnerSize} />
             </span>
           </motion.div>
         )}
@@ -478,24 +457,24 @@ const FanArtComp = ({ vcode }: { vcode: string }) => {
         <div className="mt-2 border-t border-foreground/10 pt-2 text-sm text-foreground/75">
           <p>
             <span className="text-foreground/50">画师 </span>
-            {current.artistName}
+            {current.artistName}{" "}
+            {current.artistDesc ? ` (${current.artistDesc})` : ""}
           </p>
-          {current.fanDesc ? (
-            <p className="text-foreground/60">{current.fanDesc}</p>
-          ) : null}
           {current.fanRemark ? (
             <p className="mt-1 italic text-foreground/70">
               &ldquo;{current.fanRemark}&rdquo;
             </p>
           ) : null}
         </div>
-        <button
-          type="button"
-          onClick={() => setShareOpen(true)}
-          className="mt-3 w-full rounded-xl bg-(--accent) px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:brightness-105 active:scale-[0.98]"
-        >
-          生成分享图片
-        </button>
+        <div className="mt-6 flex w-full justify-end gap-2">
+          <Button
+            type="button"
+            variant="text"
+            onClick={() => setShareOpen(true)}
+          >
+            <Share2 className="link" size={16} />
+          </Button>
+        </div>
       </motion.aside>
 
       <FanArtShareModal
@@ -517,29 +496,16 @@ const FanArtComp = ({ vcode }: { vcode: string }) => {
       {files.length > 1 && (
         <div
           key={selected}
-          className="absolute left-4 z-20"
-          style={{ top: "50%", transform: "translateY(-50%)" }}
+          className="absolute top-1/2 left-4 z-20 -translate-y-1/2"
         >
-          <div
-            className="relative flex flex-col items-center"
-            style={{
-              gap: 6,
-              width: 37,
-              padding: "0.7rem",
-              borderRadius: 9999,
-              background: "var(--nav-surface)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
-          >
+          <div className="relative flex w-[37px] flex-col items-center gap-1.5 rounded-full bg-(--nav-surface) p-[0.7rem] backdrop-blur-[10px]">
             {files.map((f, i) => (
               <button
                 key={f}
                 type="button"
                 onClick={() => setFileIndex(i)}
                 aria-label={`第 ${i + 1} 张`}
-                className="relative z-10 flex items-center justify-center"
-                style={{ width: 16, height: 16 }}
+                className="relative z-10 flex size-4 items-center justify-center"
               >
                 <span
                   className={`block h-1.5 w-1.5 rounded-full transition-colors ${
@@ -555,14 +521,7 @@ const FanArtComp = ({ vcode }: { vcode: string }) => {
               initial={false}
               animate={{ y: fileIndex * 22 }}
               transition={{ type: "spring", stiffness: 500, damping: 35 }}
-              className="pointer-events-none absolute z-0 block rounded-full"
-              style={{
-                top: "0.35rem",
-                left: "0.35rem",
-                right: "0.35rem",
-                height: 16,
-                backgroundColor: "var(--accent)",
-              }}
+              className="pointer-events-none absolute top-[0.35rem] right-[0.35rem] left-[0.35rem] z-0 block h-4 rounded-full bg-(--accent)"
             />
           </div>
         </div>

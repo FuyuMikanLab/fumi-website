@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { MessagesSquare } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
 export type NavSection = {
   id: string;
   label: string;
@@ -10,6 +12,8 @@ export type NavSection = {
 type SectionNavProps = {
   sections: NavSection[];
 };
+
+const GITHUB_URL = "https://github.com/FuyuMikanLab";
 
 function getNearestSectionIndex(sections: NavSection[]) {
   const mid = window.innerHeight * 0.5;
@@ -83,13 +87,21 @@ export function SectionNav({ sections }: SectionNavProps) {
 
     const listRect = list.getBoundingClientRect();
     const buttonRect = button.getBoundingClientRect();
-
-    setIndicator({
+    const next = {
       x: buttonRect.left - listRect.left,
       y: buttonRect.top - listRect.top,
       w: buttonRect.width,
       h: buttonRect.height,
-    });
+    };
+
+    setIndicator((prev) =>
+      prev.x === next.x &&
+      prev.y === next.y &&
+      prev.w === next.w &&
+      prev.h === next.h
+        ? prev
+        : next,
+    );
   };
 
   useEffect(() => {
@@ -116,7 +128,8 @@ export function SectionNav({ sections }: SectionNavProps) {
 
     const syncActiveFromScroll = () => {
       if (scrollLockRef.current) return;
-      setActiveIndex(getNearestSectionIndex(sections));
+      const next = getNearestSectionIndex(sections);
+      setActiveIndex((prev) => (prev === next ? prev : next));
     };
 
     const onScroll = () => {
@@ -179,6 +192,38 @@ export function SectionNav({ sections }: SectionNavProps) {
 
   return (
     <nav className="section-nav" aria-label="页面分区导航">
+      {/* PC：顶部 favicon */}
+      {/* {!horizontal ? (
+        <Link
+          href="/"
+          className="section-nav__brand link"
+          aria-label="FuyumikanLab 首页"
+        >
+          <Image
+            src="/favicon.webp"
+            alt=""
+            width={36}
+            height={36}
+            className="section-nav__brand-img"
+            priority
+          />
+        </Link>
+      ) : null} */}
+
+      <Link
+        href="/"
+        className="section-nav__brand link"
+        aria-label="FuyumikanLab 首页"
+      >
+        <Image
+          src="/favicon.webp"
+          alt=""
+          width={36}
+          height={36}
+          className="section-nav__brand-img"
+          priority
+        />
+      </Link>
       <div
         ref={listRef}
         className={`section-nav__list${horizontal ? " is-horizontal" : ""}`}
@@ -205,6 +250,28 @@ export function SectionNav({ sections }: SectionNavProps) {
           </button>
         ))}
       </div>
+
+      {/* PC：底部 GitHub */}
+      <a
+        href={GITHUB_URL}
+        className="section-nav__social link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        <MessagesSquare size={22} strokeWidth={1.75} aria-hidden />
+      </a>
+      {/* {!horizontal ? (
+        <a
+          href={GITHUB_URL}
+          className="section-nav__social link"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <MessagesSquare size={22} strokeWidth={1.75} aria-hidden />
+        </a>
+      ) : null} */}
     </nav>
   );
 }

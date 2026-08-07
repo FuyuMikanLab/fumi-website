@@ -127,11 +127,44 @@ body {
 
 /* —— Side nav + sliding indicator —— */
 .section-nav {
+  background: whitesmoke;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  top: 50%;
-  left: 1.25rem;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  left: 0;
   z-index: 40;
-  transform: translateY(-50%);
+  padding: 1.5rem 0.55rem;
+  box-sizing: border-box;
+}
+
+.section-nav__brand,
+.section-nav__social {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  color: inherit;
+  opacity: 0.72;
+  transition: opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.section-nav__brand:hover,
+.section-nav__social:hover {
+  opacity: 1;
+  color: var(--baby-blue);
+}
+
+.section-nav__brand-img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  border-radius: 0.35rem;
 }
 
 .section-nav__list {
@@ -141,8 +174,8 @@ body {
   gap: 0.35rem;
   padding: 0.35rem;
   border-radius: 999px;
-  /* background: var(--nav-surface); */
-  /* backdrop-filter: blur(10px); */
+  /* 中间定位块垂直居中（顶/底品牌位不参与挤压） */
+  margin-block: auto;
 }
 
 .section-nav__indicator {
@@ -232,14 +265,18 @@ body {
   }
 
   .section-nav {
-    left: 50%;
-    top: auto;
-    bottom: 1rem;
-    transform: translateX(-50%);
+    left: auto;
+    top: 0;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    padding: 0.5rem 0.55rem;
   }
 
   .section-nav__list {
     flex-direction: row;
+    margin-block: 0;
   }
 
   .section-button__label {

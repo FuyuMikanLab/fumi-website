@@ -16,8 +16,8 @@ const artMap: IArtMap = {
   fumika: {
     imgSeriesList: [
       {
-        artistName: "まろさん",
-        artistDesc: null,
+        artistName: "ま ろ さ ん",
+        artistDesc: "@marosandesuga",
         fanName: "anonymous",
         fanDesc: null,
         fileLists: [
@@ -26,6 +26,17 @@ const artMap: IArtMap = {
         ],
         fanRemark: null,
         date: "2026-07-28",
+      },
+      {
+        artistName: "ろあ",
+        artistDesc: "@rrrrr6a",
+        fanName: "anonymous",
+        fanDesc: null,
+        fileLists: [
+          "https://assert.vrfan.icu/website/fanart/fumika/3D7CED21547606442A003346BBF2610E.png",
+        ],
+        fanRemark: null,
+        date: "2026-08-07",
       },
     ],
   },

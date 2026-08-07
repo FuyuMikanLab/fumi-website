@@ -1,7 +1,10 @@
 import { DATA_MEMBERS } from "@/src/data";
+import { toSameOriginAsset } from "@/src/utils/cdn";
+import { formatDate } from "@/src/utils/formatDate";
 import type { IFanArtList } from "./artMap";
 
-const CDN_ORIGIN = "https://assert.vrfan.icu";
+export { toSameOriginAsset } from "@/src/utils/cdn";
+
 const TEMPLATE_URL = "/templates/fanart-share.html";
 const TEMPLATE_VERSION = "4";
 
@@ -21,41 +24,12 @@ export const loadFanArtShareTemplate = async (): Promise<string> => {
   return html;
 };
 
-/** 资源站 URL → 同源 /cdn，避免 html-to-image 跨域污染 */
-export const toSameOriginAsset = (url: string): string => {
-  if (!url) return url;
-  if (url.startsWith("/cdn/")) return url;
-  if (url.startsWith(CDN_ORIGIN)) {
-    return `/cdn${url.slice(CDN_ORIGIN.length)}`;
-  }
-  try {
-    const u = new URL(
-      url,
-      typeof window !== "undefined" ? window.location.href : CDN_ORIGIN,
-    );
-    if (u.origin === CDN_ORIGIN) {
-      return `/cdn${u.pathname}${u.search}`;
-    }
-  } catch {
-    /* ignore */
-  }
-  return url;
-};
-
 const escapeHtml = (s: string) =>
   s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
-
-const formatShareDate = (d: string) => {
-  const t = new Date(d);
-  if (Number.isNaN(+t)) return d;
-  const mm = String(t.getMonth() + 1).padStart(2, "0");
-  const dd = String(t.getDate()).padStart(2, "0");
-  return `${t.getFullYear()}.${mm}.${dd}`;
-};
 
 export type BuildFanArtShareHtmlInput = {
   entry: IFanArtList;
@@ -86,6 +60,7 @@ export const buildFanArtShareHtml = async ({
     DATA_MEMBERS.seriesList
       .flatMap((series) => series.members)
       .find((member) => member.code === vcode)?.name ?? "";
+      
   if (!vname) {
     throw new Error(`vcode ${vcode ?? "(empty)"} not found`);
   }
@@ -93,9 +68,10 @@ export const buildFanArtShareHtml = async ({
   return template
     .replaceAll("{{BRAND}}", escapeHtml(brand))
     .replaceAll("{{V_NAME}}", escapeHtml(vname))
-    .replaceAll("{{DATE}}", escapeHtml(formatShareDate(entry.date)))
+    .replaceAll("{{DATE}}", escapeHtml(formatDate(entry.date)))
     .replaceAll("{{FAN_NAME}}", escapeHtml(entry.fanName || entry.artistName))
     .replaceAll("{{ARTIST_NAME}}", escapeHtml(entry.artistName))
+    .replaceAll("{{ARTIST_DESC}}", escapeHtml(entry.artistDesc ?? ""))
     .replaceAll("{{REMARK}}", remark ? `“${escapeHtml(remark)}”` : "")
     .replaceAll("{{REMARK_EMPTY}}", remark ? "false" : "true")
     .replaceAll("{{MAIN_IMAGE}}", escapeHtml(main))
