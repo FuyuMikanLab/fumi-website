@@ -8,7 +8,7 @@ export function AcidCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const root = cursorRef.current?.closest(".card-view");
+    const root = cursorRef.current?.closest<HTMLElement>(".card-view");
     const cursor = cursorRef.current;
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
 
