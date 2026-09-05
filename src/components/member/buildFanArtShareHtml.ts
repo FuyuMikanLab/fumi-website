@@ -1,7 +1,7 @@
 import { DATA_MEMBERS } from "@/src/data";
 import { toSameOriginAsset } from "@/src/utils/cdn";
 import { formatDate } from "@/src/utils/formatDate";
-import type { IFanArtList } from "./artMap";
+import type { IFanArtList } from "@/src/data/fanArt";
 
 export { toSameOriginAsset } from "@/src/utils/cdn";
 
@@ -60,7 +60,7 @@ export const buildFanArtShareHtml = async ({
     DATA_MEMBERS.seriesList
       .flatMap((series) => series.members)
       .find((member) => member.code === vcode)?.name ?? "";
-      
+
   if (!vname) {
     throw new Error(`vcode ${vcode ?? "(empty)"} not found`);
   }
