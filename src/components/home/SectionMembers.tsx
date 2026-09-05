@@ -2,7 +2,6 @@
 
 import { DATA_MEMBERS } from "@/src/data";
 import type { ISeriesList } from "@/src/data/sectionMember";
-import { cdnUrl } from "@/src/utils/cdn";
 import { renderWithBold } from "@/src/utils/renderWithBold";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -39,11 +38,6 @@ export function SectionMembers() {
     allMembers[0]?.code,
   );
   const [direction, setDirection] = useState(0);
-
-  const getTachiePath = (code: string) =>
-    cdnUrl(`/website/images/${code}-tachie.webp`);
-  const getAvatarPath = (code: string) =>
-    cdnUrl(`/website/images/${code}-avatar.webp`);
 
   const activeMember =
     allMembers.find((m) => m.code === activeCharacterCode) ?? allMembers[0];
@@ -96,7 +90,7 @@ export function SectionMembers() {
                         whileTap={{ scale: 0.96 }}
                       >
                         <Image
-                          src={getAvatarPath(member.code)}
+                          src={DATA_MEMBERS.getAvatarPath(member.code)}
                           alt={member.name}
                           width={400}
                           height={400}
@@ -145,7 +139,7 @@ export function SectionMembers() {
             >
               <Image
                 className="members__tachie-img"
-                src={getTachiePath(activeCharacterCode)}
+                src={DATA_MEMBERS.getTachiePath(activeCharacterCode)}
                 alt={activeMember?.name ?? activeCharacterCode}
                 width={1000}
                 height={1000}

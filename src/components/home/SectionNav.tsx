@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MessagesSquare } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { ExternalLink } from "@/src/components/ui";
 export type NavSection = {
   id: string;
   label: string;
@@ -252,15 +253,13 @@ export function SectionNav({ sections }: SectionNavProps) {
       </div>
 
       {/* PC：底部 GitHub */}
-      <a
+      <ExternalLink
         href={GITHUB_URL}
         className="section-nav__social link"
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label="GitHub"
       >
         <MessagesSquare size={22} strokeWidth={1.75} aria-hidden />
-      </a>
+      </ExternalLink>
       {/* {!horizontal ? (
         <a
           href={GITHUB_URL}

@@ -9,21 +9,46 @@
   --nav-surface: rgb(28 25 20 / 0.08);
   --nav-indicator: var(--baby-blue);
   --nav-indicator-text: #f3efe6;
+  /* 全站字号层级：避免组件内出现大量相近字号 */
+  --type-micro: 0.625rem;
+  --type-caption: 0.75rem;
+  --type-small: 0.875rem;
+  --type-body: 1rem;
+  --type-subtitle: 1.25rem;
+  --type-heading: 1.5rem;
+  --button-underline-width: 4px;
+  --button-weight: 500;
+  --button-weight-selected: 700;
 }
 
+/*
+  字体角色（组件只引用 body / display / mono，不要拼 next/font 变量）：
+  body     正文 / UI — Chill（中文）→ Harlow → Geist
+  display  标题 / 品牌 — Harlow（拉丁）→ Chill（中文）→ Geist
+  mono     标签 / 元信息 — Geist Mono
+  sans     Tailwind 默认无衬线，等同 body
+*/
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-harlow: var(--font-harlow-solid), sans-serif;
-  --font-chill-round-gothic: var(--font-chill-round-gothic), sans-serif;
+
+  --font-body: var(--font-chill-round-gothic), var(--font-harlow-solid),
+    var(--font-geist-sans), sans-serif;
+
+  --font-display: var(--font-harlow-solid), var(--font-chill-round-gothic),
+    var(--font-geist-sans), sans-serif;
+
+  --font-mono: var(--font-chill-round-gothic), var(--font-geist-mono), ui-monospace, monospace;
+
+  --font-serif: var(--font-ruthin), sans-serif;
+
+  --font-sans: var(--font-body);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-chill-round-gothic), var(--font-harlow), var(--font-geist-sans), sans-serif;
+  font-family: var(--font-body);
 }
 
 * b {
@@ -46,6 +71,65 @@ body {
 .link:hover {
   color: var(--baby-blue);
   transition: all 0.3s ease-in-out;
+}
+
+.ui-button--underline {
+  --button-accent: currentColor;
+  --button-line-rest: 0;
+  --button-line-hover: 0.55;
+  --button-line-selected: 1;
+  --button-line-inset: 0.75rem;
+  --button-line-bottom: 0.25rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5rem 0.75rem;
+  color: inherit;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-weight: var(--button-weight);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ui-button--underline::after {
+  content: "";
+  position: absolute;
+  right: var(--button-line-inset);
+  bottom: var(--button-line-bottom);
+  left: var(--button-line-inset);
+  height: var(--button-underline-width);
+  background: var(--button-accent);
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 100%, 6px 100%, 0 0);
+  transform: scaleX(var(--button-line-rest));
+  transform-origin: left;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ui-button--underline:hover::after {
+  transform: scaleX(var(--button-line-hover));
+}
+
+.ui-button--underline[data-selected="true"] {
+  font-weight: var(--button-weight-selected);
+}
+
+.ui-button--underline[data-selected="true"]::after {
+  transform: scaleX(var(--button-line-selected));
+}
+
+.ui-button--underline:active {
+  font-weight: var(--button-weight-selected);
+}
+
+.ui-button--underline:disabled {
+  pointer-events: none;
+  opacity: 0.45;
 }
 
 /* —— Home scroll sections —— */
@@ -75,7 +159,7 @@ body {
 
 .section__eyebrow {
   margin: 0 0 0.75rem;
-  font-size: 0.85rem;
+  font-size: var(--type-small);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.55;
@@ -91,7 +175,7 @@ body {
 
 .section__desc {
   margin: 1.25rem 0 0;
-  font-size: 1.05rem;
+  font-size: var(--type-body);
   line-height: 1.6;
   max-width: 28rem;
   opacity: 0.72;

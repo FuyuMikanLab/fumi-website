@@ -7,12 +7,13 @@ export interface IFanArtList {
   fileLists: string[];
   date: string; // 投稿日期（ISO 格式，如 2026-07-30），用于按时间排序
 }
-interface IArtMap {
+export interface IArtMap {
   [key: string]: {
     imgSeriesList: IFanArtList[];
   };
 }
-const artMap: IArtMap = {
+
+export const artMap: IArtMap = {
   fumika: {
     imgSeriesList: [
       {
@@ -41,5 +42,3 @@ const artMap: IArtMap = {
     ],
   },
 };
-
-export default artMap;

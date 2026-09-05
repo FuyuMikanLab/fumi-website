@@ -1,36 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
-import "./globals.css";
-import { Analytics } from "@vercel/analytics/next";
-
-/** 字形文件。组件请用 --font-body / --font-display / --font-mono，不要直接引用这些变量。 */
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const harlowSolid = localFont({
-  src: "../public/fonts/Harlow Solid Regular.ttf",
-  variable: "--font-harlow-solid",
-  display: "swap",
-});
-
-const chillRoundGothic = localFont({
-  src: "../public/fonts/ChillRoundGothic_Normal.woff2",
-  variable: "--font-chill-round-gothic",
-  display: "swap",
-});
-const ruthin = localFont({
-  src: "../public/fonts/Ruthin.otf",
-  variable: "--font-ruthin",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -67,18 +35,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${harlowSolid.variable} ${chillRoundGothic.variable} ${ruthin.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        {/* <div className="fixed top-0 left-0 w-full z-50">
-          <Header />
-        </div> */}
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  );
+  return <>{children}</>;
 }

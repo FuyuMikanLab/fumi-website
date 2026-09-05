@@ -1,0 +1,160 @@
+.ext-link-dialog {
+  --ext-acid: var(--cv-acid, #d7ff3f);
+  --ext-cyan: var(--cv-cyan, #35e7ff);
+  --ext-ink: var(--cv-ink, #11151b);
+  --ext-muted: var(--cv-muted, rgb(17 21 27 / 0.6));
+  --ext-radius-xs: 0.125rem;
+  --ext-radius-sm: 0.25rem;
+  --ext-radius-md: 0.5rem;
+  --ext-radius-lg: 1rem;
+  --ext-space-xs: 0.25rem;
+  --ext-space-sm: 0.5rem;
+  --ext-space-md: 0.75rem;
+  --ext-space-lg: 1rem;
+  --ext-space-xl: 1.5rem;
+  position: relative;
+  width: min(22.5rem, 92vw);
+  overflow: hidden;
+  padding:
+    calc(var(--ext-space-xl) + 0.15rem) var(--ext-space-xl) var(--ext-space-lg);
+  border: 0;
+  box-shadow: none;
+  border-radius:
+    var(--ext-radius-sm) var(--ext-radius-lg) var(--ext-radius-sm) var(--ext-radius-md);
+  color: var(--ext-ink);
+  background: #ffffff;
+  isolation: isolate;
+}
+
+.ext-link-dialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 2.6rem;
+  height: 0.42rem;
+  background: var(--ext-acid);
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.ext-link-dialog::after {
+  content: "";
+  position: absolute;
+  bottom: var(--ext-space-lg);
+  left: var(--ext-space-lg);
+  z-index: 1;
+  width: 0.38rem;
+  height: 0.38rem;
+  background: var(--ext-acid);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.ext-link-dialog__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ext-space-xs);
+  margin: 0 0 var(--ext-space-lg);
+  padding:
+    var(--ext-space-xs) var(--ext-space-md) var(--ext-space-xs) var(--ext-space-xs);
+  border-radius: 0;
+  background: var(--ext-ink);
+  clip-path: polygon(0 0,
+      calc(100% - 0.42rem) 0,
+      100% 50%,
+      calc(100% - 0.42rem) 100%,
+      0 100%);
+  color: #f7fafb;
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.ext-link-dialog__badge-dot {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: var(--ext-radius-xs);
+  background: var(--ext-acid);
+}
+
+.ext-link-dialog__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-heading);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.ext-link-dialog__desc {
+  margin: var(--ext-space-sm) 0 0;
+  font-size: var(--type-small);
+  line-height: 1.55;
+  color: var(--ext-muted);
+}
+
+.ext-link-dialog__url {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ext-space-xs);
+  margin: var(--ext-space-lg) 0 0;
+  padding: var(--ext-space-sm) var(--ext-space-md) var(--ext-space-sm) var(--ext-space-md);
+  background: color-mix(in srgb, var(--ext-acid) 16%, #f4f6f8);
+  clip-path: polygon(0 0,
+      100% 0,
+      100% calc(100% - 0.42rem),
+      calc(100% - 0.42rem) 100%,
+      0 100%);
+}
+
+.ext-link-dialog__host {
+  font-family: var(--font-mono);
+  font-size: var(--type-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ext-ink);
+}
+
+.ext-link-dialog__href {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--ext-muted);
+}
+
+.ext-link-dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ext-space-xs);
+  margin-top: var(--ext-space-lg);
+  padding-left: var(--ext-space-xl);
+}
+
+.ext-link-dialog__cancel {
+  --button-accent: color-mix(in srgb, var(--ext-ink) 28%, transparent);
+  color: var(--ext-muted);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.08em;
+}
+
+.ext-link-dialog__confirm {
+  --button-accent: var(--ext-acid);
+  color: var(--ext-ink);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  letter-spacing: 0.08em;
+}
+
+.ext-link-modal-backdrop {
+  background:
+    radial-gradient(circle at 74% 28%, rgb(215 255 63 / 0.22), transparent 30%),
+    radial-gradient(circle at 18% 82%, rgb(53 231 255 / 0.16), transparent 32%),
+    rgb(17 21 27 / 0.28);
+  backdrop-filter: blur(10px);
+}

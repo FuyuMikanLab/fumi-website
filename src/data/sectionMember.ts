@@ -1,3 +1,4 @@
+import { cdnUrl } from "@/src/utils/cdn";
 export interface ISeriesList {
   name: string;
   members: {
@@ -56,3 +57,8 @@ export const getVCodeList = (seriesList: ISeriesList[]) => {
 };
 
 export const vCodeList: string[] = getVCodeList(seriesList).flat();
+
+export const getTachiePath = (code: string) =>
+  cdnUrl(`/website/images/${code}-tachie.webp`);
+export const getAvatarPath = (code: string) =>
+  cdnUrl(`/website/images/${code}-avatar.webp`);

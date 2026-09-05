@@ -1,0 +1,31 @@
+/* card-view__field：透视容器；倾斜作用在整层平面上，子元素保持 flat 以保证点击热区对齐 */
+.card-view__field {
+  perspective: 1400px;
+  perspective-origin: 50% 42%;
+}
+
+.card-view__stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: rotateX(16deg) rotateY(-10deg);
+  transform-style: flat;
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+
+.card-view__plane,
+.card-view__tile,
+.card-view__cell {
+  transform-style: flat;
+}
+
+.card-view__cell {
+  pointer-events: auto;
+}
+
+.card-view__cell .card-comp {
+  pointer-events: auto;
+  backface-visibility: hidden;
+}

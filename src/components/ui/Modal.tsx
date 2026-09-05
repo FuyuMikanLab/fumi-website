@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 type ModalProps = {
@@ -10,6 +11,7 @@ type ModalProps = {
   /** dialog 无障碍标签 */
   label?: string;
   className?: string;
+  backdropClassName?: string;
 };
 
 export function Modal({
@@ -18,7 +20,14 @@ export function Modal({
   children,
   label = "对话框",
   className = "",
+  backdropClassName,
 }: ModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -28,7 +37,18 @@ export function Modal({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  return (
+  useEffect(() => {
+    if (!open) return;
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = overflow;
+    };
+  }, [open]);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open ? (
         <motion.div
@@ -41,7 +61,7 @@ export function Modal({
           <button
             type="button"
             aria-label="关闭"
-            className="absolute inset-0 bg-black/55 backdrop-blur-[2px]"
+            className={`absolute inset-0 border-0 ${backdropClassName ?? "bg-black/55 backdrop-blur-[2px]"}`}
             onClick={onClose}
           />
 
@@ -59,6 +79,7 @@ export function Modal({
           </motion.div>
         </motion.div>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

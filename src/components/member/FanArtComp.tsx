@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 import { Button, Spinner } from "@/src/components/ui";
 import { formatDate } from "@/src/utils/formatDate";
-import artMap, { type IFanArtList } from "./artMap";
+import { artMap, type IFanArtList } from "@/src/data/fanArt";
 import FanArtShareModal from "./FanArtShareModal";
 import { Share2 } from "lucide-react";
 
@@ -46,11 +46,9 @@ const LoadableImage = ({
   /** 是否显示脉冲骨架底（大图用） */
   skeleton?: boolean;
 }) => {
-  const [loaded, setLoaded] = useState(() => loadedSrcCache.has(src));
-
-  useEffect(() => {
-    setLoaded(loadedSrcCache.has(src));
-  }, [src]);
+  // 用 cache 派生 loaded；src 变化时下一帧自然重算，无需 effect 里 setState
+  const [, bump] = useState(0);
+  const loaded = loadedSrcCache.has(src);
 
   return (
     <>
@@ -110,8 +108,9 @@ const LoadableImage = ({
           // Fan Art 原图常 2MB+，Vercel /_next/image 拉取压缩易 502，改为浏览器直连 CDN
           unoptimized
           onLoad={() => {
+            if (loadedSrcCache.has(src)) return;
             loadedSrcCache.add(src);
-            setLoaded(true);
+            bump((n) => n + 1);
           }}
         />
       </motion.div>
@@ -448,7 +447,7 @@ const FanArtComp = ({ vcode }: { vcode: string }) => {
         <p className="text-xs tracking-wide text-foreground/55">
           {formatDate(current.date)}
         </p>
-        <h2 className="mt-0.5 text-lg font-bold leading-snug">
+        <h2 className="mt-0.5 text-xl font-bold leading-snug">
           {current.fanName}
         </h2>
         {current.fanDesc ? (
