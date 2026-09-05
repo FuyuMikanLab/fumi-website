@@ -2,8 +2,10 @@ node_modules
 .pnpm-store
 tsconfig.tsbuildinfo
 .next
+
 fonts/source/
 fonts/glyphs.txt
+
 .vercel
 .tmp-shot
 _tmp_*
