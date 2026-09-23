@@ -13,9 +13,9 @@ export const seriesList: ISeriesList[] = [
     name: "本社一期",
     members: [
       {
-        name: "郁花Fumika",
+        name: "夢見柑",
         description:
-          "FuyumikanLab一期生。为了社团的未来，并没有在全力以赴。<br />怠惰的绝食系恶魔。",
+          "FuyumikanLab一期生。为了社团的未来，并没有在全力以赴。<br />怠惰的绝食系恶魔。<br />在魔法失效之前曾经叫郁花Fumika。",
         code: "fumika",
       },
     ],
